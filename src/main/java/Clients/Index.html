@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Song Info Client</title>
+    <script>
+        function sendSearchQuery() {
+            var searchQuery = document.getElementById("searchQuery").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/search?query=" + encodeURIComponent(searchQuery), true);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var response = xhr.responseText;
+                    var youtubeLink = "https://www.youtube.com/results?search_query=" + encodeURIComponent(searchQuery);
+                    document.getElementById("response").innerHTML = '<a href="' + youtubeLink + '">' + response + '</a>';
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+<h1>Song Info Client</h1>
+<label for="searchQuery">Search Query:</label>
+<input type="text" id="searchQuery" name="searchQuery">
+<button onclick="sendSearchQuery()">Search</button>
+<div id="response"></div>
+</body>
+</html>
